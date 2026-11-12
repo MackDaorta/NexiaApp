@@ -1,0 +1,22 @@
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# Python / Django
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+staticfiles/
+.env
+
+# Archivos de Claves y Credenciales AWS
+*.pem
+*.key
+aws-credentials.txt
+credentials.csv
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

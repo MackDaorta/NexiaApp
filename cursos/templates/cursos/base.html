@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Nexia Learning{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-700 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="text-xl font-bold tracking-wider">NexiaApp</a>
+                    <div class="hidden md:flex space-x-4">
+                        <a href="{% url 'home' %}" class="hover:bg-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Inicio</a>
+                        <a href="{% url 'mis_cursos' %}" class="hover:bg-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Mis Cursos</a>
+                        <a href="{% url 'catalogo' %}" class="hover:bg-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Catálogo de Cursos</a>
+                        <a href="{% url 'nosotros' %}" class="hover:bg-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Nosotros</a>
+                        {% if user.is_authenticated and user.is_staff %}
+                        <a href="{% url 'lista_cursos_gestion' %}" class="bg-amber-600 hover:bg-amber-500 px-3 py-1.5 rounded text-sm font-medium">Panel Gestión</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{% url 'carrito' %}" class="bg-indigo-600 hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                        🛒 Carrito
+                    </a>
+                    {% if user.is_authenticated %}
+                        <span class="text-sm bg-indigo-800 px-3 py-1 rounded-full">Hola, {{ user.username }}</span>
+                        {% if user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="bg-amber-600 hover:bg-amber-500 px-3 py-1 rounded text-sm">Admin</a>
+                        {% endif %}
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="text-sm hover:underline">Salir</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-sm hover:underline">Iniciar Sesión</a>
+                        <a href="{% url 'registro' %}" class="bg-white text-indigo-700 hover:bg-gray-100 px-3 py-1.5 rounded-md text-sm font-medium">Registrarse</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            <p>&copy; 2026 NexiaApp - Plataforma de Cursos Online. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

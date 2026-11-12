@@ -1,0 +1,28 @@
+{% extends 'cursos/base.html' %}
+{% block title %}Mis Cursos - NexiaApp{% endblock %}
+{% block content %}
+<div class="space-y-6">
+    <h1 class="text-3xl font-extrabold text-gray-900">Mis Cursos Adquiridos</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {% for ins in inscripciones %}
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 flex flex-col">
+                {% if ins.curso.portada %}
+                    <img src="{{ ins.curso.portada.url }}" class="h-48 w-full object-cover">
+                {% else %}
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center text-indigo-400 font-bold">Sin Portada</div>
+                {% endif %}
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="font-bold text-lg text-gray-900 mb-2">{{ ins.curso.titulo }}</h3>
+                    <p class="text-gray-600 text-sm mb-4 flex-grow">{{ ins.curso.descripcion|truncatechars:80 }}</p>
+                    <a href="{% url 'ver_curso' ins.curso.id %}" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2.5 rounded-lg text-sm font-medium transition">Continuar Aprendiendo</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-span-3 text-center py-12 bg-white rounded-xl border border-gray-200">
+                <p class="text-gray-500 text-lg mb-4">Aún no estás inscrito en ningún curso.</p>
+                <a href="{% url 'catalogo' %}" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-medium">Explorar Catálogo</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

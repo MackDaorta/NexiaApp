@@ -1,0 +1,11 @@
+{% extends 'cursos/base.html' %}
+{% block title %}Carrito de Compras - NexiaApp{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Tu Carrito de Compras</h1>
+    <div class="bg-white rounded-xl shadow-md p-6 border border-gray-100 text-center py-12">
+        <p class="text-gray-500 text-lg mb-4">Tu carrito está vacío actualmente.</p>
+        <a href="{% url 'catalogo' %}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-lg transition">Explorar Cursos</a>
+    </div>
+</div>
+{% endblock %}
